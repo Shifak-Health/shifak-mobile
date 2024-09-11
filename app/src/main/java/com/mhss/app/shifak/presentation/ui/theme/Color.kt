@@ -1,4 +1,4 @@
-package com.mhss.app.shifak.ui.theme
+package com.mhss.app.shifak.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
