@@ -50,6 +50,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
@@ -110,6 +114,9 @@ dependencies {
 
     // Coil Compose
     implementation(libs.coil.compose)
+
+    // Androidx splashscreen
+    implementation(libs.splashscreen)
 }
 
 ksp {
