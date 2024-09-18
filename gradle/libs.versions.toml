@@ -18,6 +18,8 @@ datastorePreferences = "1.1.1"
 coroutines = "1.9.0-RC"
 kotlinxSerializationJson = "1.7.1"
 ksp = "2.0.0-1.0.22"
+androidxSecurity = "1.1.0-alpha06"
+coil = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +58,8 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidxSecurity" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

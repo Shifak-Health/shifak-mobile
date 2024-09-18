@@ -104,6 +104,12 @@ dependencies {
 
     // Datastore Preferences
     implementation(libs.androidx.datastore.preferences)
+
+    // Androidx security crypto
+    implementation(libs.androidx.security.crypto)
+
+    // Coil Compose
+    implementation(libs.coil.compose)
 }
 
 ksp {
