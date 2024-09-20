@@ -7,9 +7,21 @@ import kotlinx.serialization.Serializable
 sealed class Screen {
 
     @Serializable
+    data object OnboardingScreen : Screen()
+
+    @Serializable
     data object AccountTypeScreen : Screen()
 
     @Serializable
     data class AuthScreen(val accountType: AccountType) : Screen()
+
+    @Serializable
+    data class LoginScreen(val accountType: AccountType) : Screen()
+
+    @Serializable
+    data object UserSignUpScreen : Screen()
+
+    @Serializable
+    data object PharmacySignUpScreen : Screen()
 
 }
