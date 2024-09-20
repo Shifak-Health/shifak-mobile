@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">شِفاك</string>
+    <string name="normal_user">مستخدم عادي</string>
+    <string name="pharmacy">صيدلية</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="create_new_account">إنشاء حساب جديد</string>
+    <string name="auth_screen_text">أفضل مكان لاستغلال الأدوية غير المستعملة</string>
+    <string name="forgot_password">نسيت كلمة المرور</string>
+    <string name="password">كلمة المرور</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="dont_have_account">ليس لدي حساب</string>
+    <string name="sign_up">تسجيل</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="already_have_account">لدي حساب بالفعل</string>
+    <string name="hello">مرحبًا</string>
+    <string name="login_to_continue">سجل الدخول للمتابة</string>
+    <string name="national_id">الرقم القومي</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="pharmacy_name">اسم الصيدلية</string>
+    <string name="hotline">الخط الساخن</string>
+    <string name="commercial_number">الرقم التجاري</string>
+    <string name="tax_number">الرقم الضريبي</string>
+
 </resources>
