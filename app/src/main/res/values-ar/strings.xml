@@ -22,5 +22,13 @@
     <string name="hotline">الخط الساخن</string>
     <string name="commercial_number">الرقم التجاري</string>
     <string name="tax_number">الرقم الضريبي</string>
+    <string name="onboarding_description_1">يتيح لك تطبيقنا التبرع بالأدوية غير المستخدمة بطريقة آمنة وسهلة. احرص على أن تصل الأدوية إلى الأشخاص الذين يحتاجونها بالفعل</string>
+    <string name="onboarding_description_2">1. قم بمسح الباركود أو إدخال تفاصيل الدواء\n2.قم ببيعها او التبرع بها\n3.قم بشراء الأدوية النادرة او غالية الثمن</string>
+    <string name="onboarding_description_3">نضمن سلامة وأصالة الأدوية التي يتم التبرع بها، مما يسهل عليك مساعدة الآخرين بطمأنينة وثقة. معاً، يمكننا تحسين الوصول إلى الأدوية وتقليل الهدر</string>
+    <string name="start">ابدأ</string>
+    <string name="continue_text">متابعة</string>
+    <string name="onboarding_title_1">ساعد الاخرين</string>
+    <string name="onboarding_title_2">كيف يعمل التطبيق؟</string>
+    <string name="onboarding_title_3">انضم إلى مجتمع\nموثوق وآمن</string>
 
 </resources>

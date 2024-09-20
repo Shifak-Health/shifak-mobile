@@ -21,4 +21,12 @@
     <string name="hotline">Hotline</string>
     <string name="commercial_number">Commercial number</string>
     <string name="tax_number">Tax number</string>
+    <string name="onboarding_description_1">Our application allows you to donate unused medications safely and easily. Make sure that the medicines reach the people who really need them</string>
+    <string name="onboarding_description_2">1. Scan the barcode or enter the medicine details\n2. Sell or donate it\n3. Buy rare or expensive medicines</string>
+    <string name="onboarding_description_3">We guarantee the safety and authenticity medicines. Together, we can improve access to medicines and reduce waste</string>
+    <string name="start">Start</string>
+    <string name="continue_text">Continue</string>
+    <string name="onboarding_title_1">Help others</string>
+    <string name="onboarding_title_2">How does it work?</string>
+    <string name="onboarding_title_3">Trusted\nand safe community</string>
 </resources>

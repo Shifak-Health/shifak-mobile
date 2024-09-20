@@ -29,9 +29,8 @@ import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 
 @Composable
 fun AuthScreen(
-    accountType: AccountType,
     onLogin: () -> Unit,
-    onSignUp: (AccountType) -> Unit,
+    onSignUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -52,7 +51,7 @@ fun AuthScreen(
             textAlign = TextAlign.Center,
             color = DarkOnSurfaceColor
         )
-        Spacer(Modifier.height(96.dp))
+        Spacer(Modifier.height(64.dp))
         MainButton(
             modifier = Modifier.padding(horizontal = 42.dp),
             text = stringResource(R.string.login),
@@ -64,7 +63,7 @@ fun AuthScreen(
             modifier = Modifier.padding(horizontal = 42.dp),
             text = stringResource(R.string.create_new_account),
             onClick = {
-                onSignUp(accountType)
+                onSignUp()
             })
         Spacer(Modifier.height(96.dp))
     }
@@ -79,7 +78,6 @@ private fun AuthScreenPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             AuthScreen(
-                accountType = AccountType.USER,
                 onLogin = { },
                 onSignUp = { }
             )

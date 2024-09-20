@@ -26,12 +26,11 @@ import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 @Composable
 fun AccountTypeScreen(
     onNavigate: (AccountType) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 42.dp),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -42,13 +41,22 @@ fun AccountTypeScreen(
             contentScale = ContentScale.FillWidth
         )
         Spacer(Modifier.height(128.dp))
-        MainButton(text = stringResource(R.string.normal_user), onClick = {
-            onNavigate(AccountType.USER)
-        })
+        MainButton(
+            text = stringResource(R.string.normal_user),
+            onClick = {
+                onNavigate(AccountType.USER)
+            },
+            modifier = Modifier.padding(horizontal = 42.dp),
+
+            )
         Spacer(Modifier.height(24.dp))
-        MainButton(text = stringResource(R.string.pharmacy), onClick = {
-            onNavigate(AccountType.PHARMACY)
-        })
+        MainButton(
+            text = stringResource(R.string.pharmacy),
+            onClick = {
+                onNavigate(AccountType.PHARMACY)
+            },
+            modifier = Modifier.padding(horizontal = 42.dp),
+        )
         Spacer(Modifier.height(96.dp))
     }
 }
