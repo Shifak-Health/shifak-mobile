@@ -75,7 +75,7 @@ fun UserHomeScreen(
             UserActionCard(
                 icon = painterResource(R.drawable.ic_donate),
                 title = stringResource(R.string.donate_sell),
-                onClick = { onNavigate(Screen.AddMedicineScreen) },
+                onClick = { onNavigate(Screen.AddMedicationScreen) },
                 modifier = Modifier
                     .weight(0.8f)
                     .padding(16.dp)
