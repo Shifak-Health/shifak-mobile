@@ -117,6 +117,9 @@ dependencies {
 
     // Androidx splashscreen
     implementation(libs.splashscreen)
+
+    // Markdown
+    implementation(libs.compose.markdown)
 }
 
 ksp {

@@ -43,7 +43,7 @@ sealed class Screen {
     data object SmartAssistantScreen : Screen()
 
     @Serializable
-    data object AddMedicineScreen : Screen()
+    data object AddMedicationScreen : Screen()
 
     @Serializable
     data object MedicationsScreen : Screen()

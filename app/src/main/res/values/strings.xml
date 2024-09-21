@@ -44,4 +44,20 @@
     <string name="explore_drugs">Explore drugs</string>
     <string name="show_all">Show all</string>
     <string name="nearby_pharmacies">Nearby pharmacies</string>
+    <string name="no_internet_connection">No internet connection.\nPlease connect to a network and try again.</string>
+    <string name="unexpected_error">Unexpected error occurred.\nPlease try again later.</string>
+    <string name="write_message">Write a message</string>
+    <string name="order">Order</string>
+    <string name="shop_used_medications">Shop used medications</string>
+    <string name="add_drug_details">Add drug details</string>
+    <string name="confirm">Confirm</string>
+    <string name="drug_name">Drug name</string>
+    <string name="drug_type">Drug type</string>
+    <string name="drug_quantity">Drug quantity</string>
+    <string name="location">Location</string>
+    <string name="production_date">Production date</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="price">Price</string>
+    <string name="add_photos">Add photos</string>
+    <string name="add_photos_hint">Close-up photo of the expiration date of each strip and the box, and a photo of each strip showing the condition of the medicine</string>
 </resources>

@@ -45,6 +45,23 @@
     <string name="explore_drugs">استكشف الادوية</string>
     <string name="show_all">مشاهدة الكل</string>
     <string name="nearby_pharmacies">صيدليات قريبة</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت.\nيرجى الاتصال بشبكة والمحاولة مرة أخرى.</string>
+    <string name="unexpected_error">حدث خطأ غير متوقع.\nيرجى المحاولة مرة أخرى لاحقاً.</string>
+    <string name="write_message">اكتب رسالة</string>
+    <string name="order">اطلب</string>
+    <string name="add_drug_details">إضافة تفاصيل الدواء</string>
+    <string name="confirm">تأكيد</string>
+    <string name="drug_name">اسم الدواء</string>
+    <string name="drug_type">نوع الدواء</string>
+    <string name="drug_quantity">كمية الدواء</string>
+    <string name="location">الموقع</string>
+    <string name="production_date">تاريخ الإنتاج</string>
+    <string name="expiry_date">تاريخ الانتهاء</string>
+    <string name="price">السعر</string>
+    <string name="add_photos">إضافة صور</string>
+    <string name="shop_used_medications">تسوق الادوية المستعملة</string>
+
+    <string name="add_photos_hint">صوره مقربه لتاريخ صلاحية كل شريط والعلبة وصوره لكل شريط توضح حاله الدواء</string>
 
 
 </resources>
