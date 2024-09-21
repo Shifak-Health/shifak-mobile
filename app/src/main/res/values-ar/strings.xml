@@ -30,5 +30,21 @@
     <string name="onboarding_title_1">ساعد الاخرين</string>
     <string name="onboarding_title_2">كيف يعمل التطبيق؟</string>
     <string name="onboarding_title_3">انضم إلى مجتمع\nموثوق وآمن</string>
+    <string name="home">الرئيسية</string>
+    <string name="smart_assistant">المساعد الذكي</string>
+    <string name="profile">حسابي</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="donate_sell">تبرع/بيع</string>
+    <string name="shop">تسوق</string>
+    <string name="talk_to_our_assistant">تحدث الى مساعدنا الذكي</string>
+    <string name="try_now">جرب الان</string>
+    <string name="transactions">المعاملات</string>
+    <string name="price_egp">السعر: %1$dج</string>
+    <string name="free">مجانًا</string>
+    <string name="qty">الكمية: %1$d</string>
+    <string name="explore_drugs">استكشف الادوية</string>
+    <string name="show_all">مشاهدة الكل</string>
+    <string name="nearby_pharmacies">صيدليات قريبة</string>
+
 
 </resources>

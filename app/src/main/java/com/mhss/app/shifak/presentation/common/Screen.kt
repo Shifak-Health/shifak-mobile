@@ -7,6 +7,15 @@ import kotlinx.serialization.Serializable
 sealed class Screen {
 
     @Serializable
+    data object AuthGraph : Screen()
+
+    @Serializable
+    data object UserGraph : Screen()
+
+    @Serializable
+    data object PharmacyGraph : Screen()
+
+    @Serializable
     data object OnboardingScreen : Screen()
 
     @Serializable
@@ -23,5 +32,29 @@ sealed class Screen {
 
     @Serializable
     data object PharmacySignUpScreen : Screen()
+
+    @Serializable
+    data object UserHomeScreen : Screen()
+
+    @Serializable
+    data object UserMainScreen : Screen()
+
+    @Serializable
+    data object SmartAssistantScreen : Screen()
+
+    @Serializable
+    data object AddMedicineScreen : Screen()
+
+    @Serializable
+    data object MedicationsScreen : Screen()
+
+    @Serializable
+    data object UserProfileScreen : Screen()
+
+    @Serializable
+    data object TransactionsScreen : Screen()
+
+    @Serializable
+    data object FAQScreen : Screen()
 
 }

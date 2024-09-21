@@ -29,4 +29,19 @@
     <string name="onboarding_title_1">Help others</string>
     <string name="onboarding_title_2">How does it work?</string>
     <string name="onboarding_title_3">Trusted\nand safe community</string>
+    <string name="home">Home</string>
+    <string name="smart_assistant">Assistant</string>
+    <string name="profile">Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="donate_sell">Donate/Sell</string>
+    <string name="shop">Shop</string>
+    <string name="talk_to_our_assistant">Talk to our smart assistant</string>
+    <string name="try_now">Try now</string>
+    <string name="transactions">Transactions</string>
+    <string name="price_egp">Price: %1$d EGP</string>
+    <string name="free">Free</string>
+    <string name="qty">Quantity: %1$d</string>
+    <string name="explore_drugs">Explore drugs</string>
+    <string name="show_all">Show all</string>
+    <string name="nearby_pharmacies">Nearby pharmacies</string>
 </resources>

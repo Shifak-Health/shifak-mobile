@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 val PrimaryColor = Color(0xFF008dda)
 val SecondaryColor = Color(0xFF41C9E2)
 
-val LightSurfaceColor = Color(0xFFECFFFD)
+val LightSurfaceColor = Color.White
 val DarkSurfaceColor = Color(0xFF131313)
 
 val LightBackgroundColor = Color(0xFFFFFFFF)
