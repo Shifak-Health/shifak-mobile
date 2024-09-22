@@ -2,6 +2,7 @@ package com.mhss.app.shifak.presentation.user.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +29,7 @@ import com.mhss.app.shifak.presentation.common.DrugSmallCard
 @Composable
 fun ExploreDrugsSection(
     drugs: List<Drug>,
+    loading: Boolean,
     onDrugClick: (Drug) -> Unit,
     onShowAllClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -53,7 +57,11 @@ fun ExploreDrugsSection(
             )
         }
         Spacer(modifier.height(14.dp))
-        LazyRow(
+        if (loading) {
+            Box(Modifier.fillMaxWidth().padding(vertical = 64.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(Modifier.size(48.dp))
+            }
+        } else LazyRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)

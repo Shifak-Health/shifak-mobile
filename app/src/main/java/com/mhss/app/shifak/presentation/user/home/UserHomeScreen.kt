@@ -50,10 +50,9 @@ fun UserHomeScreen(
     state: UserHomeUiState,
     onNavigate: (Screen) -> Unit,
     onEvent: (UserHomeEvent) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -99,6 +98,7 @@ fun UserHomeScreen(
 
         ExploreDrugsSection(
             drugs = state.exploreMedications,
+            loading = state.medicationsLoading,
             onDrugClick = { drug ->
                 // TODO
             },
@@ -110,7 +110,8 @@ fun UserHomeScreen(
         Spacer(Modifier.height(18.dp))
 
         NearbyPharmaciesSection(
-            pharmacies = state.pharmaciesNearby,
+            pharmacies = state.pharmacies,
+            loading = state.pharmaciesLoading,
             onPharmacyClick = { pharmacy ->
                 // TODO
             },
@@ -297,12 +298,8 @@ private fun LoginScreenPreview() {
                             ),
                             pharmacies = listOf(),
                             user = null,
-                            isValid = false,
-                            isAvailable = false,
                             isDonated = false,
-                            updatedAt = "doming",
                             image = null,
-                            components = listOf()
                         ),
                         Drug(
                             id = 2,
@@ -319,12 +316,8 @@ private fun LoginScreenPreview() {
                             ),
                             pharmacies = listOf(),
                             user = null,
-                            isValid = false,
-                            isAvailable = false,
                             isDonated = true,
-                            updatedAt = "doming",
                             image = null,
-                            components = listOf()
                         ),
                         Drug(
                             id = 3,
@@ -341,21 +334,16 @@ private fun LoginScreenPreview() {
                             ),
                             pharmacies = listOf(),
                             user = null,
-                            isValid = false,
-                            isAvailable = false,
                             isDonated = true,
-                            updatedAt = "doming",
                             image = null,
-                            components = listOf()
 
                         )
                     ),
-                    pharmaciesNearby = listOf(
+                    pharmacies = listOf(
                         Pharmacy(
                             id = 1,
                             name = "صيدلية الدواء",
                             hotline = "",
-                            order = 1,
                             isActive = true,
                             logoUrl = "https://www.al-dawaa.com/media/media/logo/stores/2/logo_720_.png"
 

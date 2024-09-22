@@ -11,9 +11,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.mhss.app.shifak.presentation.assistant.AssistantScreen
 import com.mhss.app.shifak.presentation.assistant.AssistantViewModel
+import com.mhss.app.shifak.presentation.auth.login.LoginScreenEvent
 import com.mhss.app.shifak.presentation.common.Screen
+import com.mhss.app.shifak.presentation.user.donate_buy.AddDrugEvent
 import com.mhss.app.shifak.presentation.user.donate_buy.AddDrugScreen
+import com.mhss.app.shifak.presentation.user.donate_buy.AddDrugViewModel
+import com.mhss.app.shifak.presentation.user.donate_buy.GetMedicationsEvent
 import com.mhss.app.shifak.presentation.user.donate_buy.MedicationsScreen
+import com.mhss.app.shifak.presentation.user.donate_buy.MedicationsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 fun NavGraphBuilder.userNestedGraph(navController: NavHostController) {
@@ -29,17 +34,26 @@ fun NavGraphBuilder.userNestedGraph(navController: NavHostController) {
             UserMainScreen(navController)
         }
         composable<Screen.AddMedicationScreen> {
+            val viewModel = koinViewModel<AddDrugViewModel>()
             AddDrugScreen(
-                onNavigateUp = {
-                    navController.navigateUp()
+                viewModel.state,
+                onEvent = { event ->
+                    when (event) {
+                        is AddDrugEvent.AddDrug -> viewModel.onEvent(event)
+                        AddDrugEvent.NavigateUp -> navController.navigateUp()
+                    }
                 }
             )
         }
         composable<Screen.MedicationsScreen> {
+            val viewModel = koinViewModel<MedicationsViewModel>()
             MedicationsScreen(
-                // TODO
-                emptyList(),
-               onNavigateUp =  { navController.navigateUp() }
+                state = viewModel.state,
+                onEvent = {
+                    when (it) {
+                        is GetMedicationsEvent.NavigateUp -> navController.navigateUp()
+                    }
+                }
             )
         }
         composable<Screen.SmartAssistantScreen> {

@@ -1,6 +1,8 @@
 package com.mhss.app.shifak.presentation.user.donate_buy
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -11,13 +13,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,16 +37,32 @@ import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 
 @Composable
 fun MedicationsScreen(
-    medications: List<Drug>,
-    onNavigateUp: () -> Unit
+    state: MedicationsUiState,
+    onEvent: (GetMedicationsEvent) -> Unit
 ) {
     Column(Modifier.fillMaxSize().navigationBarsPadding()) {
+        val context = LocalContext.current
+        LaunchedEffect(state.error) {
+            if (state.error != null) {
+                Toast.makeText(context, state.error, Toast.LENGTH_SHORT).show()
+            }
+        }
         MainTopAppBar(
             title = stringResource(R.string.shop_used_medications),
-            onNavigateUp = onNavigateUp
+            onNavigateUp = {
+                onEvent(GetMedicationsEvent.NavigateUp)
+            }
         )
         Spacer(Modifier.height(12.dp))
-        LazyColumn(
+        if (state.loading) {
+            Box(
+                Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(Modifier.size(64.dp))
+            }
+        }
+        else LazyColumn(
             contentPadding = PaddingValues(
                 horizontal = 16.dp,
                 vertical = 12.dp
@@ -48,7 +70,7 @@ fun MedicationsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            items(medications) { drug ->
+            items(state.medications) { drug ->
                 DrugCard(
                     drug = drug,
                     onClick = {}
@@ -69,74 +91,62 @@ private fun LoginScreenPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             MedicationsScreen(
-                listOf(
-                    Drug(
-                        id = 1,
-                        name = "بانادول اكسترا",
-                        description = "",
-                        price = 43.0,
-                        qty = 2,
-                        productionDate = 0,
-                        expiryDate = 0,
-                        drugType = DrugType(
-                            id = 8181,
-                            name = "gm",
-                            unit = "gm"
+                MedicationsUiState(
+                    medications = listOf(
+                        Drug(
+                            id = 1,
+                            name = "بانادول اكسترا",
+                            description = "",
+                            price = 43.0,
+                            qty = 2,
+                            productionDate = 0,
+                            expiryDate = 0,
+                            drugType = DrugType(
+                                id = 8181,
+                                name = "gm",
+                                unit = "gm"
+                            ),
+                            pharmacies = listOf(),
+                            user = null,
+                            isDonated = false,
+                            image = "",
                         ),
-                        pharmacies = listOf(),
-                        user = null,
-                        isValid = false,
-                        isAvailable = false,
-                        isDonated = false,
-                        updatedAt = "doming",
-                        image = "",
-                        components = listOf()
-                    ),
-                    Drug(
-                        id = 2,
-                        name = "Panadol cold & flu",
-                        description = "",
-                        price = 40.0,
-                        qty = 2,
-                        productionDate = 0,
-                        expiryDate = 0,
-                        drugType = DrugType(
-                            id = 8181,
-                            name = "gm",
-                            unit = "gm"
+                        Drug(
+                            id = 2,
+                            name = "Panadol cold & flu",
+                            description = "",
+                            price = 40.0,
+                            qty = 2,
+                            productionDate = 0,
+                            expiryDate = 0,
+                            drugType = DrugType(
+                                id = 8181,
+                                name = "gm",
+                                unit = "gm"
+                            ),
+                            pharmacies = listOf(),
+                            user = null,
+                            isDonated = true,
+                            image = null,
                         ),
-                        pharmacies = listOf(),
-                        user = null,
-                        isValid = false,
-                        isAvailable = false,
-                        isDonated = true,
-                        updatedAt = "doming",
-                        image = null,
-                        components = listOf()
-                    ),
-                    Drug(
-                        id = 3,
-                        name = "Panadol",
-                        description = "",
-                        price = 40.0,
-                        qty = 2,
-                        productionDate = 0,
-                        expiryDate = 0,
-                        drugType = DrugType(
-                            id = 8181,
-                            name = "gm",
-                            unit = "gm"
-                        ),
-                        pharmacies = listOf(),
-                        user = null,
-                        isValid = false,
-                        isAvailable = false,
-                        isDonated = true,
-                        updatedAt = "doming",
-                        image = null,
-                        components = listOf()
-
-                    )
+                        Drug(
+                            id = 3,
+                            name = "Panadol",
+                            description = "",
+                            price = 40.0,
+                            qty = 2,
+                            productionDate = 0,
+                            expiryDate = 0,
+                            drugType = DrugType(
+                                id = 8181,
+                                name = "gm",
+                                unit = "gm"
+                            ),
+                            pharmacies = listOf(),
+                            user = null,
+                            isDonated = true,
+                            image = null,
+                        ))
                 ),
                 {}
             )

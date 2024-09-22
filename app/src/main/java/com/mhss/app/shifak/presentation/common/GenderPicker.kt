@@ -33,7 +33,7 @@ fun GenderPicker(
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clickable {
                 expanded = true
             }

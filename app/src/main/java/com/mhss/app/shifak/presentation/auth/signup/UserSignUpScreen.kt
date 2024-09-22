@@ -138,7 +138,7 @@ fun UserSignUpScreen(
                         genders = genders,
                         selectedGender = gender,
                         onGenderSelected = { gender = it },
-                        modifier = Modifier.weight(0.75f)
+                        modifier = Modifier.weight(0.5f)
                     )
                     Spacer(Modifier.width(18.dp))
                     DatePickerField(

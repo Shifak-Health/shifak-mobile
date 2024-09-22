@@ -65,4 +65,6 @@
     <string name="birth_date">Birth date</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="donation">Donation</string>
+    <string name="expired">Expired</string>
 </resources>

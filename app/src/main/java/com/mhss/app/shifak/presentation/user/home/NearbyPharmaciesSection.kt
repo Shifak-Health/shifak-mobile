@@ -2,6 +2,7 @@ package com.mhss.app.shifak.presentation.user.home
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,13 +23,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.mhss.app.shifak.R
-import com.mhss.app.shifak.domain.model.drug.Drug
 import com.mhss.app.shifak.domain.model.pharmacy.Pharmacy
-import com.mhss.app.shifak.presentation.common.DrugSmallCard
 
 @Composable
 fun NearbyPharmaciesSection(
     pharmacies: List<Pharmacy>,
+    loading: Boolean,
     onPharmacyClick: (Pharmacy) -> Unit,
     onShowAllClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -54,7 +56,11 @@ fun NearbyPharmaciesSection(
             )
         }
         Spacer(modifier.height(14.dp))
-        LazyRow(
+        if (loading) {
+            Box(Modifier.fillMaxWidth().padding(vertical = 64.dp), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator(Modifier.size(48.dp))
+            }
+        } else LazyRow(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(14.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)

@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mhss.app.shifak.R
@@ -43,12 +44,14 @@ fun DrugSmallCard(
         ) {
             Text(
                 text = drug.name,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
                 color = MaterialTheme.colorScheme.primary
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = stringResource(R.string.qty, drug.qty),
+                text = stringResource(R.string.qty, drug.qty) + " " + drug.drugType.unit,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -56,7 +59,9 @@ fun DrugSmallCard(
             Text(
                 text = if (drug.isDonated) stringResource(R.string.free)
                 else stringResource(R.string.price_egp, drug.price.toInt()),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
                 color = MaterialTheme.colorScheme.onSurface
             )
         }
@@ -74,18 +79,14 @@ private fun LoginScreenPreview() {
                 name = "Panadol Extra",
                 price = 35.0,
                 description = "This is a description",
-                isAvailable = true,
                 qty = 3,
                 productionDate = 0,
                 expiryDate = 0,
                 drugType = DrugType(id = 0, name = "g", unit = ""),
                 pharmacies = listOf(),
                 user = null,
-                isValid = false,
                 isDonated = false,
-                updatedAt = "",
                 image = null,
-                components = listOf(),
             ),
             onClick = {},
             modifier = Modifier.width(200.dp)

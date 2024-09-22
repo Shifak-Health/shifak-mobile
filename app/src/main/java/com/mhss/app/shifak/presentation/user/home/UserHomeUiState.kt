@@ -6,8 +6,11 @@ import com.mhss.app.shifak.domain.model.pharmacy.Pharmacy
 
 @Stable
 data class UserHomeUiState(
-    val location: String = "",
+    val location: String = "الدقهلية",
     val hasNotifications: Boolean = false,
     val exploreMedications: List<Drug> = emptyList(),
-    val pharmaciesNearby: List<Pharmacy> = emptyList()
+    val pharmacies: List<Pharmacy> = emptyList(),
+    val pharmaciesLoading: Boolean = false,
+    val medicationsLoading: Boolean = false,
+    val error: String? = ""
 )

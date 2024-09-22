@@ -4,109 +4,68 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mhss.app.shifak.data.remote.pharmacy.toPharmacy
+import com.mhss.app.shifak.data.remote.user.UserApi
+import com.mhss.app.shifak.data.remote.user.model.toDrug
 import com.mhss.app.shifak.domain.model.drug.Drug
 import com.mhss.app.shifak.domain.model.drug.DrugType
 import com.mhss.app.shifak.domain.model.pharmacy.Pharmacy
+import com.mhss.app.shifak.domain.model.preferences.stringPreferencesKey
+import com.mhss.app.shifak.domain.use_case.preferences.GetEncryptedPreferenceUseCase
+import com.mhss.app.shifak.util.PrefsConstants.TOKEN_KEY
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class UserHomeViewModel : ViewModel() {
+class UserHomeViewModel(
+    val getEncryptedPreference: GetEncryptedPreferenceUseCase,
+    val api: UserApi
+) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        UserHomeUiState(
-            location = "الدقهلية",
-            exploreMedications = listOf(
-                Drug(
-                    id = 1,
-                    name = "بانادول اكسترا",
-                    description = "",
-                    price = 43.0,
-                    qty = 2,
-                    productionDate = 0,
-                    expiryDate = 0,
-                    drugType = DrugType(
-                        id = 8181,
-                        name = "gm",
-                        unit = "gm"
-                    ),
-                    pharmacies = listOf(),
-                    user = null,
-                    isValid = false,
-                    isAvailable = false,
-                    isDonated = false,
-                    updatedAt = "doming",
-                    image = null,
-                    components = listOf()
-                ),
-                Drug(
-                    id = 2,
-                    name = "Panadol cold & flu",
-                    description = "",
-                    price = 40.0,
-                    qty = 2,
-                    productionDate = 0,
-                    expiryDate = 0,
-                    drugType = DrugType(
-                        id = 8181,
-                        name = "gm",
-                        unit = "gm"
-                    ),
-                    pharmacies = listOf(),
-                    user = null,
-                    isValid = false,
-                    isAvailable = false,
-                    isDonated = true,
-                    updatedAt = "doming",
-                    image = null,
-                    components = listOf()
-                ),
-                Drug(
-                    id = 3,
-                    name = "Panadol",
-                    description = "",
-                    price = 40.0,
-                    qty = 2,
-                    productionDate = 0,
-                    expiryDate = 0,
-                    drugType = DrugType(
-                        id = 8181,
-                        name = "gm",
-                        unit = "gm"
-                    ),
-                    pharmacies = listOf(),
-                    user = null,
-                    isValid = false,
-                    isAvailable = false,
-                    isDonated = true,
-                    updatedAt = "doming",
-                    image = null,
-                    components = listOf()
-
-                )
-            ),
-            pharmaciesNearby = listOf(
-                Pharmacy(
-                    id = 1,
-                    name = "صيدلية الدواء",
-                    hotline = "",
-                    order = 1,
-                    isActive = true,
-                    logoUrl = "https://www.al-dawaa.com/media/media/logo/stores/2/logo_720_.png"
-                ),
-                Pharmacy(
-                    id = 2,
-                    name = "صيدلية العزبي",
-                    hotline = "",
-                    order = 1,
-                    isActive = true,
-                    logoUrl = null
-
-                )
-            ),
-            hasNotifications = true
-        )
-    )
+    private val _uiState = MutableStateFlow(UserHomeUiState())
     val uiState = _uiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val token = getEncryptedPreference(stringPreferencesKey(TOKEN_KEY), "")
+            launch {
+                try {
+                    _uiState.update { it.copy(medicationsLoading = true) }
+                    val medications = api.getAllDrugs(token, false, false)
+                    _uiState.update {
+                        it.copy(
+                            medicationsLoading = false,
+                            exploreMedications = medications.drugs.map { it.toDrug() }
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _uiState.update {
+                        it.copy(error = e.localizedMessage, medicationsLoading = false)
+                    }
+                }
+            }
+            launch {
+                try {
+                    _uiState.update { it.copy(pharmaciesLoading = true) }
+                    val pharmacies = api.getAllPharmacies(token)
+                    _uiState.update {
+                        it.copy(
+                            pharmaciesLoading = false,
+                            pharmacies = pharmacies.pharmacies.map { it.toPharmacy() }
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _uiState.update {
+                        it.copy(error = e.localizedMessage, pharmaciesLoading = false)
+                    }
+                }
+            }
+        }
+    }
 }

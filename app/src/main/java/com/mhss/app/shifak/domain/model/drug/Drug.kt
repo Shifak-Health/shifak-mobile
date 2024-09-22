@@ -14,10 +14,7 @@ data class Drug(
     val drugType: DrugType,
     val pharmacies: List<Pharmacy>?,
     val user: User?,
-    val isValid: Boolean,
-    val isAvailable: Boolean,
     val isDonated: Boolean,
-    val updatedAt: String,
     val image: String? = null,
-    val components: List<DrugComponent>? = null
+    val pharmacy: Pharmacy? = null
 )
