@@ -11,7 +11,12 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -20,8 +25,13 @@ import com.mhss.app.shifak.presentation.common.Screen
 import com.mhss.app.shifak.presentation.onboarding.OnboardingScreen
 import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 import com.mhss.app.shifak.presentation.user.userNestedGraph
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -30,6 +40,9 @@ class MainActivity : ComponentActivity() {
                 darkScrim = Color.BLACK
             )
         )
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { mainViewModel.showSplashScreen }
+        }
         setContent {
             ShifakTheme {
                 Surface(
@@ -37,6 +50,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.consumeWindowInsets(WindowInsets.navigationBars)
                 ) {
                     val navController = rememberNavController()
+                    LaunchedEffect(Unit) {
+                        lifecycleScope.launch {
+                            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                                mainViewModel.mainActivityEventFlow.collect { event ->
+                                    when (event) {
+                                        is MainEvent.Navigate -> navController.navigate(event.screen) {
+                                            popUpTo(event.screen) {
+                                                inclusive = true
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
                     NavHost(
                         navController = navController,
                         startDestination = Screen.OnboardingScreen
@@ -44,6 +73,7 @@ class MainActivity : ComponentActivity() {
                         composable<Screen.OnboardingScreen> {
                             OnboardingScreen(
                                 onFinish = {
+                                    mainViewModel.onBoardingFinished()
                                     navController.navigate(Screen.AuthGraph) {
                                         popUpTo(Screen.AuthGraph) {
                                             inclusive = true
