@@ -1,13 +1,14 @@
 package com.mhss.app.shifak.presentation.user
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.mhss.app.shifak.domain.model.drug.Drug
-import com.mhss.app.shifak.domain.model.drug.DrugType
 import com.mhss.app.shifak.presentation.assistant.AssistantScreen
 import com.mhss.app.shifak.presentation.assistant.AssistantViewModel
 import com.mhss.app.shifak.presentation.common.Screen
@@ -19,7 +20,12 @@ fun NavGraphBuilder.userNestedGraph(navController: NavHostController) {
     navigation<Screen.UserGraph>(
         startDestination = Screen.UserMainScreen
     ) {
-        composable<Screen.UserMainScreen> {
+        composable<Screen.UserMainScreen>(
+            enterTransition = { fadeIn(tween(0)) },
+            exitTransition = { fadeOut(tween(0)) },
+            popEnterTransition = { fadeIn(tween(0)) },
+            popExitTransition = { fadeOut(tween(0)) },
+        ) {
             UserMainScreen(navController)
         }
         composable<Screen.AddMedicationScreen> {

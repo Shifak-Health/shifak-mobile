@@ -1,5 +1,6 @@
 package com.mhss.app.shifak.util
 
+import android.content.Context
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -19,5 +20,15 @@ fun Long.formattedForNetwork(): String {
 
     return DateTimeFormatter
         .ofPattern("yyyy-MM-dd", Locale.ENGLISH)
+        .format(localDateTime.toJavaLocalDateTime())
+}
+
+fun Long.formatDate(showDay: Boolean = false): String {
+    val localDateTime = Instant.fromEpochMilliseconds(this).toLocalDateTime(
+        TimeZone.currentSystemDefault()
+    )
+    val pattern = if (showDay) "dd/MM/yyyy" else "MM/yyyy"
+    return DateTimeFormatter
+        .ofPattern(pattern, Locale.getDefault())
         .format(localDateTime.toJavaLocalDateTime())
 }

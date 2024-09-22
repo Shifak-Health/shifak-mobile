@@ -8,17 +8,17 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.mhss.app.shifak.domain.model.preferences.PrefsKey
 import com.mhss.app.shifak.domain.repository.preferences.PreferencesRepository
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
+import kotlin.coroutines.CoroutineContext
 
 @Single
 class PreferenceRepositoryImpl(
     private val preferences: DataStore<Preferences>,
-    @Named("ioDispatcher") private val ioDispatcher: CoroutineDispatcher
+    @Named("ioDispatcher") private val ioDispatcher: CoroutineContext
 ) : PreferencesRepository {
 
     override suspend fun <T> savePreference(key: PrefsKey, value: T) {

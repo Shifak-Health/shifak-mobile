@@ -165,17 +165,17 @@ fun PharmacySignUpScreen(
                 MainButton(
                     text = stringResource(id = R.string.sign_up),
                     onClick = {
-                        onSignUpClick(
-                            PharmacySignUpData(
-                                pharmacyName = pharmacyName,
-                                hotline = hotline,
-                                businessNumber = businessNumber,
-                                taxNumber = taxNumber,
-                                email = email,
-                                password = password,
-                                passwordConf = passwordConf
-                            )
-                        )
+//                        onSignUpClick(
+//                            PharmacySignUpData(
+//                                pharmacyName = pharmacyName,
+//                                hotline = hotline,
+//                                businessNumber = businessNumber,
+//                                taxNumber = taxNumber,
+//                                email = email,
+//                                password = password,
+//                                passwordConf = passwordConf
+//                            )
+//                        )
                     },
                 )
 

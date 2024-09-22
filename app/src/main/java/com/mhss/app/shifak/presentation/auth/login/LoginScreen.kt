@@ -63,7 +63,8 @@ fun LoginScreen(
 
     LaunchedEffect(state.done, state.error) {
         if (state.done) {
-            onEvent(LoginScreenEvent.Navigate(Screen.UserHomeScreen, true))
+            // TODO handle pharmacy
+            onEvent(LoginScreenEvent.Navigate(Screen.UserMainScreen, true))
         }
         if (state.error != null) {
             Toast.makeText(context, state.error, Toast.LENGTH_SHORT).show()
@@ -162,7 +163,8 @@ fun LoginScreen(
                                 LoginScreenEvent.Login(
                                     LoginData(
                                         email = email,
-                                        password = password
+                                        password = password,
+                                        type = state.userType
                                     )
                                 )
                             )

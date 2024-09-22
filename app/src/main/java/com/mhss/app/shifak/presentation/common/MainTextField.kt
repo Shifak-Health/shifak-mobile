@@ -32,6 +32,8 @@ fun MainTextField(
     modifier: Modifier = Modifier,
     keyboardType: KeyboardType = KeyboardType.Unspecified,
     hiddenText: Boolean = false,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
     OutlinedTextField(
@@ -44,6 +46,8 @@ fun MainTextField(
             keyboardType = keyboardType
         ),
         trailingIcon = trailingIcon,
+        readOnly = readOnly,
+        enabled = enabled,
         label = {
             Text(text = hint)
         },
@@ -56,7 +60,9 @@ fun MainTextField(
             unfocusedLabelColor = MaterialTheme.colorScheme.primary,
             focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
             unfocusedTrailingIconColor = MaterialTheme.colorScheme.primary,
-            unfocusedTextColor = MaterialTheme.colorScheme.primary
+            unfocusedTextColor = MaterialTheme.colorScheme.primary,
+            disabledContainerColor = Color.Transparent,
+            disabledIndicatorColor = MaterialTheme.colorScheme.primary
         )
     )
 }

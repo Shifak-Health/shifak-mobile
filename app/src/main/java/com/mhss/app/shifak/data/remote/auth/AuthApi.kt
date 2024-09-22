@@ -6,7 +6,9 @@ import com.mhss.app.shifak.data.remote.auth.model.LoginResponse
 import com.mhss.app.shifak.data.remote.auth.model.SignUpResponse
 import com.mhss.app.shifak.data.remote.auth.model.SignUpRequestBody
 import com.mhss.app.shifak.data.remote.auth.model.toLoginRequestBody
+import com.mhss.app.shifak.data.remote.auth.model.toRequestBody
 import com.mhss.app.shifak.domain.model.auth.LoginData
+import com.mhss.app.shifak.domain.model.auth.SignUpData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -38,7 +40,7 @@ class AuthApi(
     }
 
     suspend fun signUp(
-        body: SignUpRequestBody
+        body: SignUpData
     ): SignUpResponse {
         return withContext(ioDispatcher) {
             client.post(SHIFAK_BASE_URL) {
@@ -46,7 +48,7 @@ class AuthApi(
                     appendPathSegments("api", "register")
                 }
                 contentType(ContentType.Application.Json)
-                setBody(body)
+                setBody(body.toRequestBody())
             }.body<SignUpResponse>()
         }
     }

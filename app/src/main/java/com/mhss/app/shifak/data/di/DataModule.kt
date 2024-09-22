@@ -3,8 +3,10 @@ package com.mhss.app.shifak.data.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.mhss.app.shifak.util.PrefsConstants
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -19,7 +21,6 @@ import org.koin.core.annotation.Module
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import kotlin.coroutines.CoroutineContext
-
 
 @Module
 @ComponentScan("com.mhss.app.shifak.data")
@@ -64,4 +65,9 @@ class DataModule {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+
+    @Single
+    fun getDataStorePreferences(context: Context) = context.dataStore
 }
+
+private val Context.dataStore by preferencesDataStore(PrefsConstants.DATASTORE_NAME)

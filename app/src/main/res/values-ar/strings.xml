@@ -63,6 +63,9 @@
     <string name="add_photos_hint">صوره مقربه لتاريخ صلاحية كل شريط والعلبة وصوره لكل شريط توضح حاله الدواء</string>
     <string name="male">ذكر</string>
     <string name="female">انثى</string>
+    <string name="birth_date">تاريخ الميلاد</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
 
 
 </resources>

@@ -7,12 +7,14 @@ import com.mhss.app.shifak.domain.model.preferences.intPreferencesKey
 import com.mhss.app.shifak.domain.model.preferences.stringPreferencesKey
 import com.mhss.app.shifak.domain.use_case.preferences.GetEncryptedPreferenceUseCase
 import com.mhss.app.shifak.domain.use_case.preferences.GetPreferenceUseCase
+import com.mhss.app.shifak.domain.use_case.preferences.SavePreferenceUseCase
 import com.mhss.app.shifak.presentation.common.Screen
 import com.mhss.app.shifak.util.PrefsConstants.COMPLETED_ONBOARDING
 import com.mhss.app.shifak.util.PrefsConstants.TOKEN_KEY
 import com.mhss.app.shifak.util.PrefsConstants.USER_TYPE
 import com.mhss.app.shifak.util.UserType
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -21,7 +23,7 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class MainViewModel(
     private val getPreference: GetPreferenceUseCase,
-    private val savePreference: GetPreferenceUseCase,
+    private val savePreference: SavePreferenceUseCase,
     private val getEncryptedPreference: GetEncryptedPreferenceUseCase
 ): ViewModel() {
 
@@ -42,12 +44,13 @@ class MainViewModel(
                     val type = getPreference(intPreferencesKey(USER_TYPE), UserType.USER.prefsValue).first()
                     mainScreenChannel.send(
                         MainEvent.Navigate(
-                            if (type == UserType.USER.prefsValue) Screen.UserHomeScreen
+                            if (type == UserType.USER.prefsValue) Screen.UserMainScreen
                             else Screen.PharmacyHomeScreen
                         )
                     )
                 }
             }
+            delay(400)
             showSplashScreen = false
         }
     }

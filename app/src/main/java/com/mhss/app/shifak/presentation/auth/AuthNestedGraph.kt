@@ -1,5 +1,8 @@
 package com.mhss.app.shifak.presentation.auth
 
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -8,6 +11,9 @@ import androidx.navigation.toRoute
 import com.mhss.app.shifak.presentation.auth.login.LoginScreen
 import com.mhss.app.shifak.presentation.auth.login.LoginScreenEvent
 import com.mhss.app.shifak.presentation.auth.login.LoginViewModel
+import com.mhss.app.shifak.presentation.auth.signup.SignUpScreenEvent
+import com.mhss.app.shifak.presentation.auth.signup.SignUpViewModel
+import com.mhss.app.shifak.presentation.auth.signup.UserSignUpScreen
 import com.mhss.app.shifak.presentation.common.Screen
 import com.mhss.app.shifak.util.UserType
 import org.koin.androidx.compose.koinViewModel
@@ -17,7 +23,12 @@ fun NavGraphBuilder.authNestedGraph(navController: NavHostController) {
     navigation<Screen.AuthGraph>(
         startDestination = Screen.AccountTypeScreen
     ) {
-        composable<Screen.AccountTypeScreen> {
+        composable<Screen.AccountTypeScreen>(
+            enterTransition = { fadeIn(tween(0)) },
+            exitTransition = { fadeOut(tween(0)) },
+            popEnterTransition = { fadeIn(tween(0)) },
+            popExitTransition = { fadeOut(tween(0)) }
+        ) {
             AccountTypeScreen(
                 onNavigate = { userType ->
                     navController.navigate(Screen.AuthScreen(userType))
@@ -53,9 +64,7 @@ fun NavGraphBuilder.authNestedGraph(navController: NavHostController) {
                     when (event) {
                         is LoginScreenEvent.Login -> viewModel.onEvent(event)
                         is LoginScreenEvent.Navigate -> navController.navigate(event.screen) {
-                            if (event.popUp) popUpTo(Screen.LoginScreen(userType)) {
-                                inclusive = true
-                            }
+                            if (event.popUp) popUpTo(event.screen) { inclusive = true }
                         }
                         LoginScreenEvent.NavigateUp -> navController.navigateUp()
                         LoginScreenEvent.ForgotPassword -> {/* TODO */}
@@ -65,19 +74,20 @@ fun NavGraphBuilder.authNestedGraph(navController: NavHostController) {
         }
 
         composable<Screen.UserSignUpScreen> {
+            val viewModel = koinViewModel<SignUpViewModel>(
+                parameters = { parametersOf(UserType.USER) }
+            )
+
             UserSignUpScreen(
-                onSignUpClick = { signUpData ->
-                    // Todo
-                },
-                onLoginInsteadClick = {
-                    navController.navigate(Screen.LoginScreen) {
-                        popUpTo(Screen.LoginScreen) {
-                            inclusive = true
+                state = viewModel.state,
+                onEvent = { event ->
+                    when (event) {
+                        is SignUpScreenEvent.SignUp -> viewModel.onEvent(event)
+                        is SignUpScreenEvent.Navigate -> navController.navigate(event.screen) {
+                            if (event.popUp) popUpTo(event.screen) { inclusive = true }
                         }
+                        SignUpScreenEvent.NavigateUp -> navController.navigateUp()
                     }
-                },
-                onNavigateUp = {
-                    navController.navigateUp()
                 }
             )
         }

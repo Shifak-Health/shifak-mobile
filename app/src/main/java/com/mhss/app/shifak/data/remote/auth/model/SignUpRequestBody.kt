@@ -1,7 +1,6 @@
 package com.mhss.app.shifak.data.remote.auth.model
 
-import com.mhss.app.shifak.domain.model.auth.UserSignUpData
-import com.mhss.app.shifak.util.UserType
+import com.mhss.app.shifak.domain.model.auth.SignUpData
 import com.mhss.app.shifak.util.formattedForNetwork
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
@@ -23,14 +22,14 @@ data class SignUpRequestBody(
     @SerialName("pharmacy[is_accept_expired]") val acceptsExpired: Int? = null,
 )
 
-fun UserSignUpData.toRequestBody(): SignUpRequestBody {
+fun SignUpData.toRequestBody(): SignUpRequestBody {
     return SignUpRequestBody(
         name = fullName,
         email = email,
         password = password,
         passwordConfirmation = passwordConf,
         phone = phone,
-        type = UserType.USER.networkValue,
+        type = type.networkValue,
         gender = gender.networkValue,
         nationalId = nationalId,
         birthdate = birthDate.formattedForNetwork()

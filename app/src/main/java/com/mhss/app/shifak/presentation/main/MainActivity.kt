@@ -6,6 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.navigationBars
@@ -54,11 +57,13 @@ class MainActivity : ComponentActivity() {
                         lifecycleScope.launch {
                             repeatOnLifecycle(Lifecycle.State.STARTED) {
                                 mainViewModel.mainActivityEventFlow.collect { event ->
+                                    println(event.toString())
                                     when (event) {
                                         is MainEvent.Navigate -> navController.navigate(event.screen) {
                                             popUpTo(event.screen) {
                                                 inclusive = true
                                             }
+
                                         }
                                     }
 
@@ -70,7 +75,12 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = Screen.OnboardingScreen
                     ) {
-                        composable<Screen.OnboardingScreen> {
+                        composable<Screen.OnboardingScreen>(
+                            enterTransition = { fadeIn(tween(0)) },
+                            exitTransition = { fadeOut(tween(0)) },
+                            popEnterTransition = { fadeIn(tween(0)) },
+                            popExitTransition = { fadeOut(tween(0)) },
+                        ) {
                             OnboardingScreen(
                                 onFinish = {
                                     mainViewModel.onBoardingFinished()
