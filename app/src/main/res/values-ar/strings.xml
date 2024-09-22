@@ -68,6 +68,8 @@
     <string name="cancel">الغاء</string>
     <string name="donation">تبرع</string>
     <string name="expired">منتهي الصلاحية</string>
+    <string name="edit_and_view_profile">عرض و تعديل الملف الشخصي</string>
+    <string name="sign_out">تسجيل الخروج</string>
 
 
 </resources>

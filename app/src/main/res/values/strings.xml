@@ -67,4 +67,6 @@
     <string name="cancel">Cancel</string>
     <string name="donation">Donation</string>
     <string name="expired">Expired</string>
+    <string name="edit_and_view_profile">View and edit profile</string>
+    <string name="sign_out">Sign out</string>
 </resources>

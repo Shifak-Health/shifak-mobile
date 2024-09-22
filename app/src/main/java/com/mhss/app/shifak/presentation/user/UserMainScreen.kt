@@ -30,12 +30,14 @@ import com.mhss.app.shifak.presentation.common.Screen
 import com.mhss.app.shifak.presentation.user.donate_buy.TransactionsScreen
 import com.mhss.app.shifak.presentation.user.home.UserHomeScreen
 import com.mhss.app.shifak.presentation.user.home.UserHomeViewModel
+import com.mhss.app.shifak.presentation.user.profile.UserProfileEvent
 import com.mhss.app.shifak.presentation.user.profile.UserProfileScreen
+import com.mhss.app.shifak.presentation.user.profile.UserProfileViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun UserMainScreen(
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val navBarNavHostController = rememberNavController()
     Scaffold(
@@ -68,7 +70,11 @@ fun UserMainScreen(
             }
         }
     ) { innerPadding ->
-        NavHost(navBarNavHostController, startDestination = Screen.UserHomeScreen, Modifier.padding(innerPadding)) {
+        NavHost(
+            navBarNavHostController,
+            startDestination = Screen.UserHomeScreen,
+            Modifier.padding(innerPadding)
+        ) {
             composable<Screen.UserHomeScreen> {
                 val viewModel = koinViewModel<UserHomeViewModel>()
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -86,13 +92,27 @@ fun UserMainScreen(
                 TransactionsScreen()
             }
             composable<Screen.UserProfileScreen> {
-                UserProfileScreen()
+                val viewModel = koinViewModel<UserProfileViewModel>()
+                UserProfileScreen(
+                    state = viewModel.state,
+                    onEvent = { event ->
+                        when (event) {
+                            is UserProfileEvent.Navigate -> navController.navigate(event.screen) {
+                                popUpTo(event.screen) {
+                                    inclusive = true
+                                }
+                            }
+
+                            else -> viewModel.onEvent(event)
+                        }
+                    }
+                )
             }
         }
     }
 }
 
-data class MainScreenRoute<T: Any>(val titleRes: Int, val iconRes: Int, val route: T)
+data class MainScreenRoute<T : Any>(val titleRes: Int, val iconRes: Int, val route: T)
 
 val userMainScreenRoutes = listOf(
     MainScreenRoute(
