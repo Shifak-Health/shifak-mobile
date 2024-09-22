@@ -1,6 +1,6 @@
 package com.mhss.app.shifak.presentation.common
 
-import com.mhss.app.shifak.presentation.auth.AccountType
+import com.mhss.app.shifak.util.UserType
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -22,10 +22,10 @@ sealed class Screen {
     data object AccountTypeScreen : Screen()
 
     @Serializable
-    data class AuthScreen(val accountType: AccountType) : Screen()
+    data class AuthScreen(val userType: UserType) : Screen()
 
     @Serializable
-    data class LoginScreen(val accountType: AccountType) : Screen()
+    data class LoginScreen(val userType: UserType) : Screen()
 
     @Serializable
     data object UserSignUpScreen : Screen()
@@ -35,6 +35,9 @@ sealed class Screen {
 
     @Serializable
     data object UserHomeScreen : Screen()
+
+    @Serializable
+    data object PharmacyHomeScreen : Screen()
 
     @Serializable
     data object UserMainScreen : Screen()

@@ -1,13 +1,19 @@
 package com.mhss.app.shifak.presentation.common
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -23,6 +29,7 @@ fun MainButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    loading: Boolean = false
 ) {
     Button(
         modifier = modifier
@@ -37,16 +44,29 @@ fun MainButton(
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
             containerColor = Color.Transparent
-        )
+        ),
+        enabled = !loading
     ) {
-        Text(
-            text = text,
-            style = MaterialTheme
-                .typography
-                .headlineSmall
-                .copy(fontWeight = FontWeight.Bold),
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            AnimatedVisibility(loading) {
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = Modifier.size(48.dp).padding(8.dp)
+                )
+            }
+            Text(
+                text = text,
+                style = MaterialTheme
+                    .typography
+                    .headlineSmall
+                    .copy(fontWeight = FontWeight.Bold),
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
     }
 }
 
@@ -57,7 +77,8 @@ fun MainButtonPreview() {
         MainButton(
             text = "تسجيل الدخول",
             onClick = { },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            loading = false
         )
     }
 }

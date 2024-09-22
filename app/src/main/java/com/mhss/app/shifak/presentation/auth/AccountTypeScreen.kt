@@ -22,10 +22,11 @@ import androidx.compose.ui.unit.dp
 import com.mhss.app.shifak.R
 import com.mhss.app.shifak.presentation.common.MainButton
 import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
+import com.mhss.app.shifak.util.UserType
 
 @Composable
 fun AccountTypeScreen(
-    onNavigate: (AccountType) -> Unit,
+    onNavigate: (UserType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -44,7 +45,7 @@ fun AccountTypeScreen(
         MainButton(
             text = stringResource(R.string.normal_user),
             onClick = {
-                onNavigate(AccountType.USER)
+                onNavigate(UserType.USER)
             },
             modifier = Modifier.padding(horizontal = 42.dp),
 
@@ -53,7 +54,7 @@ fun AccountTypeScreen(
         MainButton(
             text = stringResource(R.string.pharmacy),
             onClick = {
-                onNavigate(AccountType.PHARMACY)
+                onNavigate(UserType.PHARMACY)
             },
             modifier = Modifier.padding(horizontal = 42.dp),
         )

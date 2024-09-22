@@ -1,5 +1,6 @@
-package com.mhss.app.shifak.presentation.auth
+package com.mhss.app.shifak.presentation.auth.login
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -28,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,28 +44,37 @@ import com.mhss.app.shifak.domain.model.auth.LoginData
 import com.mhss.app.shifak.presentation.common.MainButton
 import com.mhss.app.shifak.presentation.common.MainTextField
 import com.mhss.app.shifak.presentation.common.MainTopAppBar
+import com.mhss.app.shifak.presentation.common.Screen
 import com.mhss.app.shifak.presentation.ui.theme.PrimaryColor
 import com.mhss.app.shifak.presentation.ui.theme.SecondaryColor
 import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
+import com.mhss.app.shifak.util.UserType
 
 
 @Composable
 fun LoginScreen(
-    onLoginClick: (LoginData) -> Unit,
-    onNavigateUp: () -> Unit,
-    onCreateAccountClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit,
+    state: LoginUiState,
+    onEvent: (LoginScreenEvent) -> Unit,
 ) {
-    // State variables to hold text input values
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var isPasswordHidden by rememberSaveable { mutableStateOf(true) }
+    val context = LocalContext.current
+
+    LaunchedEffect(state.done, state.error) {
+        if (state.done) {
+            onEvent(LoginScreenEvent.Navigate(Screen.UserHomeScreen, true))
+        }
+        if (state.error != null) {
+            Toast.makeText(context, state.error, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Scaffold(
         topBar = {
             MainTopAppBar(
                 title = stringResource(id = R.string.login),
-                onNavigateUp = onNavigateUp,
+                onNavigateUp = { onEvent(LoginScreenEvent.NavigateUp) },
                 contentColor = Color.White
             )
         },
@@ -132,7 +144,7 @@ fun LoginScreen(
                         }
                     )
 
-                    TextButton(onClick = onForgotPasswordClick) {
+                    TextButton(onClick = { onEvent(LoginScreenEvent.ForgotPassword) }) {
                         Text(
                             text = stringResource(id = R.string.forgot_password),
                             color = MaterialTheme.colorScheme.primary,
@@ -146,13 +158,16 @@ fun LoginScreen(
                     MainButton(
                         text = stringResource(id = R.string.login),
                         onClick = {
-                            onLoginClick(
-                                LoginData(
-                                    email = email,
-                                    password = password
+                            onEvent(
+                                LoginScreenEvent.Login(
+                                    LoginData(
+                                        email = email,
+                                        password = password
+                                    )
                                 )
                             )
                         },
+                        loading = state.loading
                     )
 
                     Row(
@@ -163,7 +178,15 @@ fun LoginScreen(
                             text = stringResource(R.string.dont_have_account),
                             color = Color.Gray
                         )
-                        TextButton(onClick = onCreateAccountClick) {
+                        TextButton(onClick = {
+                            onEvent(
+                                LoginScreenEvent.Navigate(
+                                    if (state.userType == UserType.USER) Screen.UserSignUpScreen
+                                    else Screen.PharmacySignUpScreen,
+                                    popUp = true
+                                )
+                            )
+                        }) {
                             Text(
                                 text = stringResource(id = R.string.create_new_account),
                                 color = MaterialTheme.colorScheme.primary,
@@ -185,9 +208,7 @@ private fun LoginScreenPreview() {
             color = MaterialTheme.colorScheme.background
         ) {
             LoginScreen(
-                {},
-                {},
-                {},
+                LoginUiState(),
                 {}
             )
         }

@@ -7,7 +7,7 @@ enum class Gender(val stringRes: Int, val networkValue: String) {
     FEMALE(R.string.female, "female")
 }
 
-enum class UserType(val networkValue: String) {
-    USER("user"),
-    PHARMACY("pharmacy")
+enum class UserType(val networkValue: String, val prefsValue: Int) {
+    USER("user", 0),
+    PHARMACY("pharmacy", 1)
 }

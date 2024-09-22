@@ -5,6 +5,8 @@ import com.mhss.app.shifak.data.remote.auth.model.LoginRequestBody
 import com.mhss.app.shifak.data.remote.auth.model.LoginResponse
 import com.mhss.app.shifak.data.remote.auth.model.SignUpResponse
 import com.mhss.app.shifak.data.remote.auth.model.SignUpRequestBody
+import com.mhss.app.shifak.data.remote.auth.model.toLoginRequestBody
+import com.mhss.app.shifak.domain.model.auth.LoginData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -23,14 +25,14 @@ class AuthApi(
     @Named("ioDispatcher") private val ioDispatcher: CoroutineContext
 ) {
 
-    suspend fun login(body: LoginRequestBody): LoginResponse {
+    suspend fun login(body: LoginData): LoginResponse {
         return withContext(ioDispatcher) {
             client.post(SHIFAK_BASE_URL) {
                 url {
                     appendPathSegments("api", "login")
                 }
                 contentType(ContentType.Application.Json)
-                setBody(body)
+                setBody(body.toLoginRequestBody())
             }.body<LoginResponse>()
         }
     }

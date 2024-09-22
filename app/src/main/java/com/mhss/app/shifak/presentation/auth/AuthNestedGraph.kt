@@ -5,7 +5,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.mhss.app.shifak.presentation.auth.login.LoginScreen
+import com.mhss.app.shifak.presentation.auth.login.LoginScreenEvent
+import com.mhss.app.shifak.presentation.auth.login.LoginViewModel
 import com.mhss.app.shifak.presentation.common.Screen
+import com.mhss.app.shifak.util.UserType
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 fun NavGraphBuilder.authNestedGraph(navController: NavHostController) {
     navigation<Screen.AuthGraph>(
@@ -13,57 +19,47 @@ fun NavGraphBuilder.authNestedGraph(navController: NavHostController) {
     ) {
         composable<Screen.AccountTypeScreen> {
             AccountTypeScreen(
-                onNavigate = { accountType ->
-                    navController.navigate(Screen.AuthScreen(accountType))
+                onNavigate = { userType ->
+                    navController.navigate(Screen.AuthScreen(userType))
                 }
             )
         }
         composable<Screen.AuthScreen> { backStackEntry ->
-            val accountType =
-                backStackEntry.toRoute<Screen.AuthScreen>().accountType
+            val userType =
+                backStackEntry.toRoute<Screen.AuthScreen>().userType
             AuthScreen(
                 onLogin = {
-                    navController.navigate(Screen.LoginScreen(accountType))
+                    navController.navigate(Screen.LoginScreen(userType))
                 },
                 onSignUp = {
                     navController.navigate(
-                        when (accountType) {
-                            AccountType.USER -> Screen.UserSignUpScreen
-                            AccountType.PHARMACY -> Screen.PharmacySignUpScreen
+                        when (userType) {
+                            UserType.USER -> Screen.UserSignUpScreen
+                            UserType.PHARMACY -> Screen.PharmacySignUpScreen
                         }
                     )
                 }
             )
         }
         composable<Screen.LoginScreen> { backStackEntry ->
-            val accountType =
-                backStackEntry.toRoute<Screen.AuthScreen>().accountType
+            val userType =
+                backStackEntry.toRoute<Screen.AuthScreen>().userType
+            val viewModel = koinViewModel<LoginViewModel>(
+                parameters = { parametersOf(userType) }
+            )
             LoginScreen(
-                onLoginClick = { loginData ->
-                    // TODO: Implement login
-                    navController.navigate(Screen.UserGraph) {
-                        popUpTo(Screen.UserGraph) {
-                            inclusive = true
+                state = viewModel.state,
+                onEvent = { event ->
+                    when (event) {
+                        is LoginScreenEvent.Login -> viewModel.onEvent(event)
+                        is LoginScreenEvent.Navigate -> navController.navigate(event.screen) {
+                            if (event.popUp) popUpTo(Screen.LoginScreen(userType)) {
+                                inclusive = true
+                            }
                         }
+                        LoginScreenEvent.NavigateUp -> navController.navigateUp()
+                        LoginScreenEvent.ForgotPassword -> {/* TODO */}
                     }
-                },
-                onCreateAccountClick = {
-                    navController.navigate(
-                        when (accountType) {
-                            AccountType.USER -> Screen.UserSignUpScreen
-                            AccountType.PHARMACY -> Screen.PharmacySignUpScreen
-                        }
-                    ) {
-                        popUpTo(Screen.LoginScreen(accountType)) {
-                            inclusive = true
-                        }
-                    }
-                },
-                onForgotPasswordClick = {
-                    // Todo
-                },
-                onNavigateUp = {
-                    navController.navigateUp()
                 }
             )
         }
