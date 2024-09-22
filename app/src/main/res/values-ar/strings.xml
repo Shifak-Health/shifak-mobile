@@ -60,8 +60,9 @@
     <string name="price">السعر</string>
     <string name="add_photos">إضافة صور</string>
     <string name="shop_used_medications">تسوق الادوية المستعملة</string>
-
     <string name="add_photos_hint">صوره مقربه لتاريخ صلاحية كل شريط والعلبة وصوره لكل شريط توضح حاله الدواء</string>
+    <string name="male">ذكر</string>
+    <string name="female">انثى</string>
 
 
 </resources>

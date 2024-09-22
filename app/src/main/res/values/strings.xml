@@ -60,4 +60,6 @@
     <string name="price">Price</string>
     <string name="add_photos">Add photos</string>
     <string name="add_photos_hint">Close-up photo of the expiration date of each strip and the box, and a photo of each strip showing the condition of the medicine</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
