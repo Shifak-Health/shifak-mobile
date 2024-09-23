@@ -28,11 +28,13 @@ class AuthApiTest {
         // Set up successful signup scenario
         fakeAuthApi.shouldReturnError = false
 
-        val signUpData = SignUpData("name", "email",
-            nationalId = "",
-            email = "",
-            password = "",
-            passwordConf = "",
+        val signUpData = SignUpData(
+            "Mohamed Salah",
+            "01000000000",
+            nationalId = "1234456",
+            email = "test@test.com",
+            password = "mohamed123",
+            passwordConf = "mohamed123",
             birthDate = 0,
             gender = Gender.MALE,
             type = UserType.USER,
@@ -56,5 +58,29 @@ class AuthApiTest {
         val response = fakeAuthApi.login(loginData)
 
         assertEquals(true, response.token.isEmpty())
+    }
+
+    @Test
+    fun `test signUp error`() = runTest {
+        // Set up successful signup scenario
+        fakeAuthApi.shouldReturnError = false
+
+        val signUpData = SignUpData("", "",
+            nationalId = "",
+            email = "",
+            password = "",
+            passwordConf = "",
+            birthDate = 0,
+            gender = Gender.MALE,
+            type = UserType.USER,
+            pharmacyName = null,
+            pharmacyHotline = null,
+            pharmacyLogo = null,
+            acceptsExpired = null
+        )
+
+        val response = fakeAuthApi.signUp(signUpData)
+
+        assertEquals(true, response.token.isNotEmpty())
     }
 }

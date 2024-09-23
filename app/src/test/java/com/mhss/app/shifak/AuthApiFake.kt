@@ -5,10 +5,7 @@ import com.mhss.app.shifak.data.remote.auth.model.SignUpResponse
 import com.mhss.app.shifak.data.remote.auth.model.UserDto
 import com.mhss.app.shifak.domain.model.auth.LoginData
 import com.mhss.app.shifak.domain.model.auth.SignUpData
-import com.mhss.app.shifak.domain.model.user.Role
-import com.mhss.app.shifak.domain.model.user.User
 import com.mhss.app.shifak.domain.repository.auth.AuthApi
-import kotlin.random.Random
 
 class FakeAuthApi : AuthApi {
 
@@ -24,7 +21,7 @@ class FakeAuthApi : AuthApi {
 
     override suspend fun signUp(body: SignUpData): SignUpResponse {
         return if (shouldReturnError) {
-            throw Exception("Signup failed")
+            SignUpResponse(token = "")
         } else {
             SignUpResponse(token = "token")
         }
