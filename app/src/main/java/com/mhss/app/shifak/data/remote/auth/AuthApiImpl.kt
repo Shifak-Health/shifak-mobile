@@ -1,14 +1,13 @@
 package com.mhss.app.shifak.data.remote.auth
 
 import com.mhss.app.shifak.data.remote.NetworkConstants.SHIFAK_BASE_URL
-import com.mhss.app.shifak.data.remote.auth.model.LoginRequestBody
 import com.mhss.app.shifak.data.remote.auth.model.LoginResponse
 import com.mhss.app.shifak.data.remote.auth.model.SignUpResponse
-import com.mhss.app.shifak.data.remote.auth.model.SignUpRequestBody
 import com.mhss.app.shifak.data.remote.auth.model.toLoginRequestBody
 import com.mhss.app.shifak.data.remote.auth.model.toRequestBody
 import com.mhss.app.shifak.domain.model.auth.LoginData
 import com.mhss.app.shifak.domain.model.auth.SignUpData
+import com.mhss.app.shifak.domain.repository.auth.AuthApi
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -22,12 +21,12 @@ import org.koin.core.annotation.Single
 import kotlin.coroutines.CoroutineContext
 
 @Single
-class AuthApi(
+class AuthApiImpl(
     private val client: HttpClient,
     @Named("ioDispatcher") private val ioDispatcher: CoroutineContext
-) {
+): AuthApi {
 
-    suspend fun login(body: LoginData): LoginResponse {
+    override suspend fun login(body: LoginData): LoginResponse {
         return withContext(ioDispatcher) {
             client.post(SHIFAK_BASE_URL) {
                 url {
@@ -39,7 +38,7 @@ class AuthApi(
         }
     }
 
-    suspend fun signUp(
+    override suspend fun signUp(
         body: SignUpData
     ): SignUpResponse {
         return withContext(ioDispatcher) {
