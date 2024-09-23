@@ -20,6 +20,7 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import kotlin.coroutines.CoroutineContext
 
+@OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 @Single
 class AssistantApiImpl(
     private val client: HttpClient,
@@ -28,6 +29,7 @@ class AssistantApiImpl(
 
     override suspend fun sendMessage(
         messages: List<AiMessage>,
+        token: String
     ): NetworkResult<AiMessage> {
         return withContext(ioDispatcher) {
             val result = client.post(NetworkConstants.SHIFAK_BASE_URL) {
@@ -35,7 +37,7 @@ class AssistantApiImpl(
                     appendPathSegments("api", "chat")
                 }
                 contentType(ContentType.Application.Json)
-                // TODO: bearerAuth(token)
+                bearerAuth(token)
                 setBody(messages.toAssistantRequestBody())
             }.body<AssistantApiResponse>()
             NetworkResult.Success(

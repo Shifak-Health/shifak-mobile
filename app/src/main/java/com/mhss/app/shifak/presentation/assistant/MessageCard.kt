@@ -23,6 +23,7 @@ import com.mhss.app.shifak.domain.model.assistant.AiMessage
 import com.mhss.app.shifak.domain.model.assistant.AiMessageType
 import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 import dev.jeziellago.compose.markdowntext.MarkdownText
+import kotlin.uuid.ExperimentalUuidApi
 
 
 @Composable
@@ -79,6 +80,7 @@ fun LazyItemScope.MessageCard(
     }
 }
 
+@OptIn(ExperimentalUuidApi::class)
 @Preview
 @Composable
 fun MessageCardPreview() {

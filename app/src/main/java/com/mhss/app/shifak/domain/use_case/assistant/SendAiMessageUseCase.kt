@@ -11,10 +11,11 @@ class SendAiMessageUseCase(
     private val api: AssistantApi
 ) {
     suspend operator fun invoke(
-        messages: List<AiMessage>
+        messages: List<AiMessage>,
+        token: String
     ): NetworkResult<AiMessage> {
         return try {
-            api.sendMessage(messages)
+            api.sendMessage(messages, token)
         } catch (e: IOException) {
             e.printStackTrace()
             NetworkResult.InternetError

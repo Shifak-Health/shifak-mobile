@@ -5,5 +5,5 @@ import com.mhss.app.shifak.domain.model.assistant.NetworkResult
 
 interface AssistantApi {
 
-    suspend fun sendMessage(messages: List<AiMessage>): NetworkResult<AiMessage>
+    suspend fun sendMessage(messages: List<AiMessage>, token: String): NetworkResult<AiMessage>
 }

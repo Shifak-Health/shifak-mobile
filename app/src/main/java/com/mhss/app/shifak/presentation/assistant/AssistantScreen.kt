@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,7 +42,9 @@ import com.mhss.app.shifak.domain.model.assistant.AiMessage
 import com.mhss.app.shifak.domain.model.assistant.AiMessageType
 import com.mhss.app.shifak.domain.model.assistant.NetworkResult
 import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
+import kotlin.uuid.ExperimentalUuidApi
 
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun AssistantScreen(
     state: AssistantUiState,
@@ -77,14 +80,15 @@ fun AssistantScreen(
         },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues).statusBarsPadding(),
+            modifier = Modifier.fillMaxSize().padding(paddingValues).statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             LeftToRight {
                 LazyColumn(
                     state = lazyListState,
-                    reverseLayout = true
+                    reverseLayout = true,
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     item(key = 1) { Spacer(Modifier.height(20.dp)) }
                     error?.let { error ->
@@ -114,7 +118,7 @@ fun AssistantScreen(
                             }
                         }
                     }
-                    items(messages) { message ->
+                    items(messages, key = { it.id }) { message ->
                         MessageCard(
                             message = message
                         )
@@ -139,6 +143,7 @@ fun NetworkResult.Failure.toUserMessage(): String {
     }
 }
 
+@OptIn(ExperimentalUuidApi::class)
 @Preview(device = Devices.PIXEL_7_PRO)
 @Composable
 private fun AssistantScreenPreview() {
