@@ -29,9 +29,7 @@ import dev.jeziellago.compose.markdowntext.MarkdownText
 fun LazyItemScope.MessageCard(
     message: AiMessage,
 ) {
-    val isUser = remember {
-        message.type == AiMessageType.USER
-    }
+    val isUser = message.type == AiMessageType.USER
     Row(
         horizontalArrangement = if (isUser) Arrangement.End else Arrangement.Start,
         modifier = Modifier

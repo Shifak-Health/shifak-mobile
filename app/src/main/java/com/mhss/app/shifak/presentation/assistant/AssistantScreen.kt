@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -44,9 +45,9 @@ import com.mhss.app.shifak.presentation.ui.theme.ShifakTheme
 @Composable
 fun AssistantScreen(
     state: AssistantUiState,
+    messages: List<AiMessage>,
     onEvent: (AssistantEvent) -> Unit,
 ) {
-    val messages = state.messages
     val loading = state.loading
     val error = state.error
     var text by rememberSaveable { mutableStateOf("") }
@@ -73,10 +74,10 @@ fun AssistantScreen(
                     keyboardController?.hide()
                 }
             )
-        }
+        },
     ) { paddingValues ->
         Column(
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier.padding(paddingValues).statusBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -149,6 +150,7 @@ private fun AssistantScreenPreview() {
                 LoremIpsum(60).values.first()
             }
             AssistantScreen(
+                messages = emptyList(),
                 state = AssistantUiState(
                     listOf(
                         AiMessage(
@@ -161,7 +163,7 @@ private fun AssistantScreenPreview() {
                         )
                     )
                 ),
-                {}
+                onEvent = {}
             )
         }
     }

@@ -61,6 +61,7 @@ fun NavGraphBuilder.userNestedGraph(navController: NavHostController) {
             val state by viewModel.uiState.collectAsState()
             AssistantScreen(
                 state = state,
+                messages = viewModel.messages,
                 onEvent = {
                     viewModel.onEvent(it)
                 }

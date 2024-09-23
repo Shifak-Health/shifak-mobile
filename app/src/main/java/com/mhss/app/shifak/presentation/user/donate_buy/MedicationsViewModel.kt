@@ -8,13 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.mhss.app.shifak.data.remote.user.UserApi
 import com.mhss.app.shifak.data.remote.user.model.toDrug
 import com.mhss.app.shifak.domain.model.preferences.stringPreferencesKey
-import com.mhss.app.shifak.domain.use_case.auth.LoginUseCase
 import com.mhss.app.shifak.domain.use_case.preferences.GetEncryptedPreferenceUseCase
-import com.mhss.app.shifak.domain.use_case.preferences.SaveEncryptedPreferenceUseCase
-import com.mhss.app.shifak.presentation.auth.login.LoginScreenEvent
-import com.mhss.app.shifak.presentation.auth.login.LoginUiState
 import com.mhss.app.shifak.util.PrefsConstants.TOKEN_KEY
-import com.mhss.app.shifak.util.UserType
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 

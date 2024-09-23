@@ -14,7 +14,7 @@ class SendAiMessageUseCase(
         messages: List<AiMessage>
     ): NetworkResult<AiMessage> {
         return try {
-            TODO()
+            api.sendMessage(messages)
         } catch (e: IOException) {
             e.printStackTrace()
             NetworkResult.InternetError

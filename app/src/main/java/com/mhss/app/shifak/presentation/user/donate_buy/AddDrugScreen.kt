@@ -31,7 +31,9 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,8 +45,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mhss.app.shifak.R
-import com.mhss.app.shifak.data.remote.user.model.AddDrugRequestBody
-import com.mhss.app.shifak.data.remote.user.model.DrugDto
 import com.mhss.app.shifak.presentation.common.DatePickerField
 import com.mhss.app.shifak.presentation.common.MainButton
 import com.mhss.app.shifak.presentation.common.MainTextField
@@ -66,16 +66,19 @@ fun AddDrugScreen(
             .statusBarsPadding()
     ) {
         var name by rememberSaveable { mutableStateOf("") }
-        var productionDateState = rememberDatePickerState()
-        var expiryDateState = rememberDatePickerState()
+        val productionDateState = rememberDatePickerState()
+        val expiryDateState = rememberDatePickerState()
 //        var location by rememberSaveable { mutableStateOf("") }
         var qty by rememberSaveable { mutableStateOf("") }
         var type by rememberSaveable { mutableStateOf("قرص") }
         var price by rememberSaveable { mutableStateOf("") }
-        var selectedImages by rememberSaveable { mutableStateOf(emptyList<Uri>()) }
+        val selectedImages = remember { mutableStateListOf<Uri>() }
         val photoPickerLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.PickMultipleVisualMedia(),
-            onResult = { uris -> selectedImages = uris }
+            onResult = { uris ->
+                selectedImages.clear()
+                selectedImages.addAll(uris)
+            }
         )
         var donated by rememberSaveable { mutableStateOf(false) }
         var expired by rememberSaveable { mutableStateOf(false) }

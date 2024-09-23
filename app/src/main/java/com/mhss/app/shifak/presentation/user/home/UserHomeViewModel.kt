@@ -1,16 +1,10 @@
 package com.mhss.app.shifak.presentation.user.home
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mhss.app.shifak.data.remote.pharmacy.toPharmacy
 import com.mhss.app.shifak.data.remote.user.UserApi
 import com.mhss.app.shifak.data.remote.user.model.toDrug
-import com.mhss.app.shifak.domain.model.drug.Drug
-import com.mhss.app.shifak.domain.model.drug.DrugType
-import com.mhss.app.shifak.domain.model.pharmacy.Pharmacy
 import com.mhss.app.shifak.domain.model.preferences.stringPreferencesKey
 import com.mhss.app.shifak.domain.use_case.preferences.GetEncryptedPreferenceUseCase
 import com.mhss.app.shifak.util.PrefsConstants.TOKEN_KEY

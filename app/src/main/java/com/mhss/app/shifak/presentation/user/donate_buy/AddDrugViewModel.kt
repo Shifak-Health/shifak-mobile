@@ -36,7 +36,7 @@ class AddDrugViewModel(
                         AddDrugRequestBody(
                             name = dta.name,
                             drugTypeId = dta.drugTypeId,
-                            pharmacyBranchId = if (dta.isDonated) 1 else null,
+                            pharmacyBranchId = if (dta.isDonated) 2 else null,
                             price = dta.price,
                             qty = dta.qty,
                             productionDate = dta.productionDate.formattedForNetwork(),
@@ -46,7 +46,6 @@ class AddDrugViewModel(
                             images = dta.images?.map { fileManager.uriToByteArray(it) }
                         )
                     )
-                    println(response)
                     state = if (response.message == "تم إضافة الدواء بنجاح") {
                         state.copy(
                             loading = false,

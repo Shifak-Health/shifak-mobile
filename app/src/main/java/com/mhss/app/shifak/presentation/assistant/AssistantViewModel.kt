@@ -1,5 +1,6 @@
 package com.mhss.app.shifak.presentation.assistant
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mhss.app.shifak.domain.model.assistant.AiMessage
@@ -17,7 +18,7 @@ class AssistantViewModel(
     private val sendAiMessage: SendAiMessageUseCase
 ) : ViewModel() {
 
-    private val messages = mutableListOf<AiMessage>()
+    val messages = mutableStateListOf<AiMessage>()
     private val _uiState = MutableStateFlow(AssistantUiState())
     val uiState = _uiState.asStateFlow()
 
